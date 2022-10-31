@@ -1,7 +1,7 @@
 package onboarding;
 
 import java.util.*;
-import java.util.List;
+import java.util.stream.*;
 
 
 public class Problem7 {
@@ -9,8 +9,19 @@ public class Problem7 {
     private static Set<String> userFriendSet;
 
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
-        List<String> answer = Collections.emptyList();
-        return answer;
+        makeFriendsMap(friends);
+        Map<String, Integer> userPointMap = scorePointByVisitor(visitors, scorePointByAcquaintance(user));
+        return sortUserByPointAndName(userPointMap);
+    }
+
+    private static List<String> sortUserByPointAndName(Map<String, Integer> pointMap) {
+        Stream<Map.Entry<String, Integer>> stream = pointMap.entrySet().stream();
+        return stream.sorted(Collections
+                        .reverseOrder(Map.Entry.<String, Integer>comparingByValue())
+                        .thenComparing(Map.Entry.comparingByKey()))
+                .limit(5)
+                .map(sortedMap -> sortedMap.getKey())
+                .collect(Collectors.toList());
     }
 
     private static Map<String, Integer> scorePointByVisitor(List<String> visitors, Map<String, Integer> pointMap) {
