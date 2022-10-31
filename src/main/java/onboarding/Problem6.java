@@ -1,11 +1,48 @@
 package onboarding;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class Problem6 {
+
+    private static ArrayList<String> duplicatedUserList;
+
     public static List<String> solution(List<List<String>> forms) {
-        List<String> answer = List.of("answer");
-        return answer;
+        findDuplicatedUser(makeUserMap(forms));
+        Collections.sort(duplicatedUserList);
+
+        return duplicatedUserList.stream().distinct().collect(Collectors.toList());
+    }
+
+    private static void findDuplicatedUser(Map<String, Set<String>> userMap) {
+        for (String user : userMap.keySet()) {
+            compareUsers(userMap, user);
+        }
+    }
+
+    private static void compareUsers(Map<String, Set<String>> userMap, String comparator) {
+        duplicatedUserList = new ArrayList<>();
+        Set<String> userSubChars, comparatorChars;
+
+        for (String user : userMap.keySet()) {
+            userSubChars = userMap.get(user);
+            comparatorChars = userMap.get(comparator);
+
+            boolean checkDuplication = findDuplicationByNicknameSet(userSubChars, comparatorChars);
+
+            if (user.equals(comparator) || !checkDuplication) continue;
+
+            duplicatedUserList.add(user);
+            duplicatedUserList.add(comparator);
+        }
+    }
+
+    private static boolean findDuplicationByNicknameSet(Set<String> setA, Set<String> setB) {
+        Set<String> setC = new HashSet<>(setA);
+        setC.retainAll(setB);
+
+        return setC.size() >= 1;
     }
 
     private static Map<String, Set<String>> makeUserMap(List<List<String>> users) {
