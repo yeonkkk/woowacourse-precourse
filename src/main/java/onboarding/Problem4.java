@@ -3,7 +3,17 @@ package onboarding;
 
 public class Problem4 {
     public static String solution(String word) {
-        String answer = "";
+        return convertWord(word);
+    }
+
+    private static String convertWord(String word) {
+        StringBuilder result = new StringBuilder();
+
+        for (char c : word.toCharArray()) {
+            result.append((char) findPair(c));
+        }
+
+        return result.toString();
     }
 
     private static int findPair(char targetChar) {
