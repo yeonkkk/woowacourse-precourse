@@ -7,6 +7,9 @@ class Problem1 {
         if (!verifyPair(pobi) || !verifyPair(crong)) {
             return -1;
         }
+
+        int pobiMaxNum = MaxNum.findMaxNumByPerson(pobi);
+        int crongMaxNum = MaxNum.findMaxNumByPerson(crong);
     }
 
     private static boolean verifyPair(List<Integer> pairList) {
@@ -17,6 +20,13 @@ class Problem1 {
     }
 
     private static class MaxNum {
+        private static int findMaxNumByPerson(List<Integer> numList) {
+            int leftMax = findMaxNumByPage(numList.get(0));
+            int rightMax = findMaxNumByPage(numList.get(1));
+
+            return Math.max(leftMax, rightMax);
+        }
+
         private static int findMaxNumByPage(int num) {
             char[] charArray = String.valueOf(num).toCharArray();
 
