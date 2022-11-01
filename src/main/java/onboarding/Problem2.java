@@ -38,14 +38,13 @@ public class Problem2 {
 
         private static void movePointer(String str, int lastIdx) {
             while (lastIdx > cur && str.charAt(cur) == str.charAt(next)) {
-                compareCurNext(str);
+                compareCurNext(str, lastIdx);
             }
         }
 
-        private static void compareCurNext(String str) {
+        private static void compareCurNext(String str, int lastIdx) {
             char curChar = str.charAt(cur);
-
-            while (curChar == str.charAt(next)) {
+            while (next <= lastIdx && curChar == str.charAt(next)) {
                 next++;
             }
             cur = next;
@@ -53,7 +52,7 @@ public class Problem2 {
         }
 
         private static void addUniqueChar(String str, int lastIdx) {
-            if (comparePreCur(str, lastIdx)) {
+            if (comparePreCur(str, lastIdx) && cur <= lastIdx) {
                 preStr.append(str.charAt(cur));
             }
         }
