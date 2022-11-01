@@ -9,6 +9,8 @@ public class Problem6 {
     private static ArrayList<String> duplicatedUserList;
 
     public static List<String> solution(List<List<String>> forms) {
+        duplicatedUserList = new ArrayList<>();
+
         findDuplicatedUser(makeUserMap(forms));
         Collections.sort(duplicatedUserList);
 
@@ -22,7 +24,6 @@ public class Problem6 {
     }
 
     private static void compareUsers(Map<String, Set<String>> userMap, String comparator) {
-        duplicatedUserList = new ArrayList<>();
         Set<String> userSubChars, comparatorChars;
 
         for (String user : userMap.keySet()) {
