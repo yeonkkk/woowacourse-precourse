@@ -18,7 +18,7 @@ class Problem1 {
         int leftPage = pairList.get(1);
         int rightPage = pairList.get(0);
 
-        return leftPage - rightPage == 1;
+        return leftPage - rightPage == 1 && leftPage > rightPage;
     }
 
     private static class MaxNum {
