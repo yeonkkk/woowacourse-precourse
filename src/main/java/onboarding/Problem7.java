@@ -20,16 +20,17 @@ public class Problem7 {
                         .reverseOrder(Map.Entry.<String, Integer>comparingByValue())
                         .thenComparing(Map.Entry.comparingByKey()))
                 .limit(5)
-                .map(sortedMap -> sortedMap.getKey())
+                .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
     private static Map<String, Integer> scorePointByVisitor(List<String> visitors, Map<String, Integer> pointMap) {
+        if (visitors.size() == 0) return pointMap;
 
         for (String visitor : visitors) {
-            if(userFriendSet.contains(visitor)) continue;
+            if(userFriendSet != null && userFriendSet.contains(visitor)) continue;
 
-            if (pointMap.keySet().contains(visitor)) {
+            if (pointMap.containsKey(visitor)) {
                 pointMap.put(visitor, pointMap.get(visitor) + 1);
                 continue;
             }
@@ -41,6 +42,8 @@ public class Problem7 {
     private static Map<String, Integer> scorePointByAcquaintance(String user) {
         Map<String, Integer> pointMap = new HashMap<>();
         userFriendSet = friendsMap.get(user);
+
+        if (userFriendSet == null) return pointMap;
 
         for (String friend : friendsMap.keySet()) {
             if (friend.equals(user) || userFriendSet.contains(friend)) continue;
