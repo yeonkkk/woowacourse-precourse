@@ -7,6 +7,13 @@ import static baseball.Constant.*;
 
 
 public class Validation {
+    public static void verifyRestartResponse(String restartResponse) {
+        List<String> responseList = List.of(GAME_RESTART_NUM, GAME_STOP_NUM);
+        if (!responseList.contains(restartResponse)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public static void verifyNumResponse(String numResponse) {
         verifyNumResponseLength(numResponse);
         verifyNumResponseTypeAndRange(numResponse);
