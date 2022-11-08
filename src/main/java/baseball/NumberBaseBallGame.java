@@ -13,6 +13,24 @@ public class NumberBaseBallGame {
     private static Result strike = Result.STRIKE;
     private static Result nothing = Result.NOTHING;
 
+    private static void printResultToString() {
+        StringBuilder resultStr = new StringBuilder();
+        for (Result result : Result.values()) {
+            appendResult(result, resultStr);
+        }
+
+        System.out.println(resultStr);
+    }
+
+    private static void appendResult(Result result, StringBuilder resultStr) {
+        if (result.equals(nothing) && result.verifyThreeTimes()) {
+            resultStr.append(nothing.getName());
+        } else if (result.verifyOccurrence()) {
+            resultStr.append(result.getFrequency());
+            resultStr.append(result.getName() + " ");
+        }
+    }
+
     private static void countScoreByNumResponse(String numResponse) {
         for (int i = 0; i < TARGET_NUM_SIZE; i++) {
             char curNum = numResponse.charAt(i);
