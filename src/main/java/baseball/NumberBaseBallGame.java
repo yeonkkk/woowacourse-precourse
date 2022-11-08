@@ -1,17 +1,35 @@
 package baseball;
 
+import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static baseball.Constant.*;
+import static baseball.Notice.*;
 
 public class NumberBaseBallGame {
     private static List<Character> targetNumList;
     private static Result ball = Result.BALL;
     private static Result strike = Result.STRIKE;
     private static Result nothing = Result.NOTHING;
+
+
+    private static void findTargetNum() {
+        do {
+            Result.initAllFrequency();
+
+            System.out.print(INPUT_NUM_NOTICE);
+            String numAnswer = Console.readLine();
+            Validation.verifyNumResponse(numAnswer);
+
+            countScoreByNumResponse(numAnswer);
+            printResultToString();
+        } while (!strike.verifyThreeTimes());
+
+        System.out.println(CORRECT_TARGET_NUMBER_NOTICE);
+    }
 
     private static void printResultToString() {
         StringBuilder resultStr = new StringBuilder();
