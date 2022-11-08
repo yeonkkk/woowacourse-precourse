@@ -5,11 +5,28 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
 
-import static baseball.Constant.RADIX;
-import static baseball.Constant.TARGET_NUM_SIZE;
+import static baseball.Constant.*;
 
 public class NumberBaseBallGame {
     private static List<Character> targetNumList;
+    private static Result ball = Result.BALL;
+    private static Result strike = Result.STRIKE;
+    private static Result nothing = Result.NOTHING;
+
+    private static void countScoreByNumResponse(String numResponse) {
+        for (int i = 0; i < TARGET_NUM_SIZE; i++) {
+            char curNum = numResponse.charAt(i);
+
+            if (!targetNumList.contains(curNum)) {
+                nothing.increaseFrequency();
+                continue;
+            } else if (targetNumList.get(i) == curNum) {
+                strike.increaseFrequency();
+                continue;
+            }
+            ball.increaseFrequency();
+        }
+    }
 
     private static void generateTargetNum() {
         targetNumList = new ArrayList<>();
