@@ -15,6 +15,19 @@ public class NumberBaseBallGame {
     private static Result strike = Result.STRIKE;
     private static Result nothing = Result.NOTHING;
 
+    public static void playGame() {
+        System.out.println(START_NOTICE);
+        String restartResponse = GAME_RESTART_NUM;
+
+        while (restartResponse.equals(GAME_RESTART_NUM)) {
+            generateTargetNum();
+            findTargetNum();
+
+            System.out.println(RESTART_AND_STOP_NOTICE);
+            restartResponse = Console.readLine();
+            Validation.verifyRestartResponse(restartResponse);
+        }
+    }
 
     private static void findTargetNum() {
         do {
