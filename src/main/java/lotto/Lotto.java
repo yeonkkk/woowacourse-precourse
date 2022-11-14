@@ -1,8 +1,10 @@
 package lotto;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import lotto.utils.Constant;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static lotto.Validation.validateSingleNumberRange;
@@ -47,5 +49,18 @@ public class Lotto {
         for (int number : numbers) {
             validateSingleNumberRange(number);
         }
+    }
+
+    public static Lotto lottoGenerator() {
+        List<Integer> randomNums;
+
+        randomNums = Randoms.pickUniqueNumbersInRange(
+                Constant.LOTTO_RANGE_START_NUM.getValue(),
+                Constant.LOTTO_RANGE_END_NUM.getValue(),
+                Constant.LOTTO_SIZE.getValue());
+
+        Collections.sort(randomNums);
+
+        return new Lotto(randomNums);
     }
 }
