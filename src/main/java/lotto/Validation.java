@@ -35,6 +35,17 @@ public class Validation {
         return winningNumbers;
     }
 
+
+    protected int validateBonusNumber(String number) {
+        validateNull(number);
+        int bonusNumber = validateNumber(number);
+        validateSingleNumberRange(bonusNumber);
+        validateDuplicationByBonusNumber(winningNumbers, bonusNumber);
+
+        return bonusNumber;
+    }
+
+
     private void validateNull(String input) {
         if (input.equals("")) {
             throw new IllegalArgumentException(NO_INPUT_VALUE.getMessage());
@@ -70,6 +81,12 @@ public class Validation {
         if (number < LOTTO_RANGE_START_NUM.getValue() || LOTTO_RANGE_END_NUM.getValue() < number) {
             String message = OUT_OF_LOTTO_NUMBER_RANGE.getMessage(LOTTO_RANGE_START_NUM.getValue(), LOTTO_RANGE_END_NUM.getValue());
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    private static void validateDuplicationByBonusNumber(List<Integer> winningNumbers, int number) {
+        if (winningNumbers.contains(number)) {
+            throw new IllegalArgumentException(DUPLICATE_WINNING_NUMBER_AND_BONUS_NUMBER.getMessage());
         }
     }
 }
