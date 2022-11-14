@@ -41,4 +41,16 @@ public enum ResultMessage {
             System.out.println(singleMessage);
         }
     }
+
+    public static int calculateTotalWinningMoney() {
+        int totalMoney = 0;
+
+        for (ResultMessage value : ResultMessage.values()) {
+            if (value.countResult > 0) {
+                totalMoney += value.money;
+            }
+        }
+
+        return totalMoney;
+    }
 }

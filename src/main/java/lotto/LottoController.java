@@ -31,5 +31,6 @@ public class LottoController {
 
         lottoService.checkWinningResult(winningNumbers, bonusNumber);
         lottoService.printResultMessage();
+        lottoService.calculateEarningsRate();
     }
 }

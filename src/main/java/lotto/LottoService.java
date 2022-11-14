@@ -7,6 +7,7 @@ import lotto.utils.ResultMessage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static lotto.utils.ResultMessage.calculateTotalWinningMoney;
 import static lotto.utils.ResultMessage.printLottoCountResult;
 
 
@@ -44,6 +45,14 @@ public class LottoService {
         for (Lotto lotto : lottos) {
             compareWinningNumAndLotto(lotto.getNumbers(), winningNums.getNumbers(), bonusNum);
         }
+    }
+
+    public void calculateEarningsRate() {
+        int earnings = calculateTotalWinningMoney();
+        double earningsRate = Math.round(earnings * 1000 / purchaseAmount) / 10.0;
+
+        String earningsRateStr = earningsRate + "%";
+        System.out.printf(Notice.EARNINGS_RATE.getMessage(), earningsRateStr);
     }
 
     private void compareWinningNumAndLotto(List<Integer> lotto, List<Integer> winningNums , int bonusNum) {
