@@ -7,6 +7,7 @@ import java.util.List;
 
 import static lotto.Validation.validateSingleNumberRange;
 import static lotto.utils.ExceptionMessage.DUPLICATE_VALUE;
+import static lotto.utils.ExceptionMessage.INVALID_COUNT;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -27,7 +28,7 @@ public class Lotto {
 
     private void validateSize(List<Integer> numbers) {
         if (numbers.size() != Constant.LOTTO_SIZE.getValue()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_COUNT.getMessage());
         }
     }
 
