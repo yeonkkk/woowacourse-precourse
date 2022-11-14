@@ -19,6 +19,12 @@ public class Lotto {
         this.numbers = numbers;
     }
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
+
+
     private void validateSize(List<Integer> numbers) {
         if (numbers.size() != Constant.LOTTO_SIZE.getValue()) {
             throw new IllegalArgumentException();
