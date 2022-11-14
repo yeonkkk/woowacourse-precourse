@@ -8,9 +8,9 @@ import static lotto.utils.Constant.*;
 import static lotto.utils.ExceptionMessage.*;
 
 public class Validation {
-    private List<Integer> winningNumbers;
+    private Lotto winningNumbers;
 
-    public void setWinningNumbers(List<Integer> winningNumbers) {
+    public void setWinningNumbers(Lotto winningNumbers) {
         this.winningNumbers = winningNumbers;
     }
 
@@ -23,28 +23,28 @@ public class Validation {
         return amountToInt;
     }
 
-
-    protected List<Integer> validateWinningNumber(String number) {
+    protected Lotto validateWinningNumber(String number) {
         validateNull(number);
         validateSeparator(number);
 
-        winningNumbers = Arrays.stream(number.split(","))
+        List<Integer> winningNums =
+                Arrays.stream(number.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
 
+        winningNumbers = new Lotto(winningNums);
+
         return winningNumbers;
     }
-
 
     protected int validateBonusNumber(String number) {
         validateNull(number);
         int bonusNumber = validateNumber(number);
         validateSingleNumberRange(bonusNumber);
-        validateDuplicationByBonusNumber(winningNumbers, bonusNumber);
+        validateDuplicationByBonusNumber(winningNumbers.getNumbers(), bonusNumber);
 
         return bonusNumber;
     }
-
 
     private void validateNull(String input) {
         if (input.equals("")) {
