@@ -5,6 +5,9 @@ import lotto.utils.Notice;
 
 
 public class LottoController {
+
+    private final LottoService lottoService = new LottoService();
+
     public void executeLottoProgram() {
         createLotto();
         confirmResult();
@@ -12,7 +15,11 @@ public class LottoController {
 
     private void createLotto() {
         System.out.println(Notice.LOTTO_PURCHASE_AMOUNT.getMessage());
+
         String purchaseAmount = Console.readLine();
+        lottoService.generateLotto(purchaseAmount);
+        lottoService.printLottoInfo();
+
     }
 
     private void confirmResult() {
@@ -21,5 +28,8 @@ public class LottoController {
 
         System.out.println(Notice.ENTER_BONUS_NUMBER.getMessage());
         String bonusNumber = Console.readLine();
+
+        lottoService.checkWinningResult(winningNumbers, bonusNumber);
+        lottoService.printResultMessage();
     }
 }
