@@ -1,15 +1,15 @@
-package lotto;
+package lotto.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import lotto.utils.Constant;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static lotto.Validation.validateSingleNumberRange;
+import static lotto.utils.Validation.validateRange;
 import static lotto.utils.ExceptionMessage.DUPLICATE_VALUE;
-import static lotto.utils.ExceptionMessage.INVALID_COUNT;
+import static lotto.utils.Validation.validateSize;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -26,14 +26,6 @@ public class Lotto {
         return numbers;
     }
 
-
-
-    private void validateSize(List<Integer> numbers) {
-        if (numbers.size() != Constant.LOTTO_SIZE.getValue()) {
-            throw new IllegalArgumentException(INVALID_COUNT.getMessage());
-        }
-    }
-
     private void validateDuplication(List<Integer> numbers) {
         List<Integer> uniqueNumbers = new ArrayList<>();
 
@@ -45,22 +37,16 @@ public class Lotto {
         }
     }
 
-    private void validateRange(List<Integer> numbers) {
-        for (int number : numbers) {
-            validateSingleNumberRange(number);
-        }
-    }
-
     public static Lotto lottoGenerator() {
-        List<Integer> randomNums;
-
-        randomNums = Randoms.pickUniqueNumbersInRange(
+        List<Integer> randomNums = Randoms.pickUniqueNumbersInRange(
                 Constant.LOTTO_RANGE_START_NUM.getValue(),
                 Constant.LOTTO_RANGE_END_NUM.getValue(),
                 Constant.LOTTO_SIZE.getValue());
 
-        Collections.sort(randomNums);
+        List<Integer> lottoNums = randomNums.stream()
+                .sorted()
+                .collect(Collectors.toList());
 
-        return new Lotto(randomNums);
+        return new Lotto(lottoNums);
     }
 }

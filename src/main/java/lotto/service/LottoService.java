@@ -1,24 +1,23 @@
-package lotto;
+package lotto.service;
 
+import lotto.domain.*;
 import lotto.utils.Constant;
 import lotto.utils.Notice;
-import lotto.utils.ResultMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static lotto.utils.ResultMessage.calculateTotalWinningMoney;
-import static lotto.utils.ResultMessage.printLottoCountResult;
+import static lotto.domain.ResultMessage.calculateTotalWinningMoney;
+import static lotto.domain.ResultMessage.printLottoCountResult;
 
 
 public class LottoService {
-    private int purchaseAmount;
+    private PurchaseAmount purchaseAmount;
     private int lottoNum;
     private List<Lotto> lottos;
-    private final Validation validation = new Validation();
 
     public void generateLotto(String amount) {
-        purchaseAmount = validation.validateAmount(amount);
+        purchaseAmount = new PurchaseAmount(amount);
         lottoNum = getNumberOfLotto();
 
         lottosGenerator(lottoNum);
@@ -38,18 +37,21 @@ public class LottoService {
     }
 
     public void checkWinningResult(String strWinningNum, String strBonusNum) {
-        Lotto winningNums = validation.validateWinningNumber(strWinningNum);
-
-        int bonusNum = validation.validateBonusNumber(strBonusNum);
+        WinningLotto winningLotto = new WinningLotto(strWinningNum);
+        BonusNumber bonusNum = new BonusNumber(strBonusNum, winningLotto);
 
         for (Lotto lotto : lottos) {
-            compareWinningNumAndLotto(lotto.getNumbers(), winningNums.getNumbers(), bonusNum);
+            compareWinningNumAndLotto(
+                    lotto.getNumbers(),
+                    winningLotto.getNumbers(),
+                    bonusNum.getNumber());
         }
     }
 
     public void calculateEarningsRate() {
         int earnings = calculateTotalWinningMoney();
-        double earningsRate = Math.round(earnings * 1000 / purchaseAmount) / 10.0;
+        int amount = purchaseAmount.getAmount();
+        double earningsRate = Math.round(earnings * 1000 / amount) / 10.0;
 
         String earningsRateStr = earningsRate + "%";
         System.out.printf(Notice.EARNINGS_RATE.getMessage(), earningsRateStr);
@@ -70,7 +72,7 @@ public class LottoService {
 
 
     private int getNumberOfLotto() {
-        return purchaseAmount / Constant.CURRENCY_UNIT.getValue();
+        return purchaseAmount.getAmount() / Constant.CURRENCY_UNIT.getValue();
     }
 
     private void lottosGenerator(int num) {

@@ -1,4 +1,4 @@
-package lotto.utils;
+package lotto.domain;
 
 public enum ResultMessage {
     THREE_CORRECT_NUMBERS("3개 일치 (5,000원) - %d개", 3, 0, false, 5000),

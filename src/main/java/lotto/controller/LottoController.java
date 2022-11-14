@@ -1,6 +1,7 @@
-package lotto;
+package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Console;
+import lotto.service.LottoService;
 import lotto.utils.Notice;
 
 
