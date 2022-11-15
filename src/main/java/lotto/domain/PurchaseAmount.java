@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.utils.Constant;
+
 import static lotto.utils.Constant.CURRENCY_UNIT;
 import static lotto.utils.Constant.MINIMUM_AMOUNT;
 import static lotto.utils.ExceptionMessage.INVALID_CURRENCY_UNIT;
@@ -10,6 +12,7 @@ import static lotto.utils.Validation.validateNumber;
 public class PurchaseAmount {
 
     private final int amount;
+    private int lottoNum;
 
 
     public PurchaseAmount(String purchaseAmount) {
@@ -18,6 +21,10 @@ public class PurchaseAmount {
 
     public int getAmount() {
         return amount;
+    }
+
+    public int getLottoNum() {
+        return lottoNum;
     }
 
     public int validate(String amountStr) {
@@ -36,6 +43,10 @@ public class PurchaseAmount {
         if (number % CURRENCY_UNIT.getValue() != 0) {
             throw new IllegalArgumentException(INVALID_CURRENCY_UNIT.getMessage(CURRENCY_UNIT.getValue()));
         }
+    }
+
+    private int getNumberOfLotto() {
+        return amount / Constant.CURRENCY_UNIT.getValue();
     }
 }
 

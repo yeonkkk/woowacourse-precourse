@@ -14,11 +14,11 @@ public class Validation {
     }
 
     public static int validateNumber(String input) {
-        boolean result = input.chars().allMatch(Character::isDigit);
-        if (!result) {
+        try {
+            return Integer.parseInt(input);
+        } catch (Exception e) {
             throw new IllegalArgumentException(IS_NOT_NUMBER.getMessage());
         }
-        return Integer.parseInt(input);
     }
 
     public static void validateSize(List<Integer> numbers) {

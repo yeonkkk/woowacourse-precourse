@@ -1,7 +1,6 @@
 package lotto.service;
 
 import lotto.domain.*;
-import lotto.utils.Constant;
 import lotto.utils.Notice;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class LottoService {
 
     public void generateLotto(String amount) {
         purchaseAmount = new PurchaseAmount(amount);
-        lottoNum = getNumberOfLotto();
+        lottoNum = purchaseAmount.getLottoNum();
 
         lottosGenerator(lottoNum);
     }
@@ -68,11 +67,6 @@ public class LottoService {
         }
 
         ResultMessage.increaseCountResult(count, checkBonusNum);
-    }
-
-
-    private int getNumberOfLotto() {
-        return purchaseAmount.getAmount() / Constant.CURRENCY_UNIT.getValue();
     }
 
     private void lottosGenerator(int num) {
