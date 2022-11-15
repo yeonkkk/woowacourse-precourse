@@ -27,6 +27,10 @@ public enum ResultMessage {
         this.money = money;
     }
 
+    public int getCountResult() {
+        return countResult;
+    }
+
     public static void increaseCountResult(int countResult, boolean bonusNum) {
         for (ResultMessage value : ResultMessage.values()) {
             if (value.correctStandard == countResult && value.checkBonusNum == bonusNum) {
@@ -52,5 +56,11 @@ public enum ResultMessage {
         }
 
         return totalMoney;
+    }
+
+    public static void initResultMessage() {
+        for (ResultMessage value : ResultMessage.values()) {
+            value.countResult = 0;
+        }
     }
 }
