@@ -12,11 +12,12 @@ import static lotto.utils.Validation.validateNumber;
 public class PurchaseAmount {
 
     private final int amount;
-    private int lottoNum;
+    private final int lottoNum;
 
 
     public PurchaseAmount(String purchaseAmount) {
         this.amount = validate(purchaseAmount);
+        this.lottoNum = getNumberOfLotto();
     }
 
     public int getAmount() {
