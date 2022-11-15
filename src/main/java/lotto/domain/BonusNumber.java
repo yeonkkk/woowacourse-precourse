@@ -35,4 +35,26 @@ public class BonusNumber {
         }
     }
 
+    public static void checkWinningResult(List<Lotto> lottos, WinningLotto winningLotto, BonusNumber bonusNum) {
+        for (Lotto lotto : lottos) {
+            compareLotto(
+                    lotto.getNumbers(),
+                    winningLotto.getNumbers(),
+                    bonusNum.getNumber());
+        }
+    }
+
+    public static void compareLotto(List<Integer> lotto, List<Integer> winningNums , int bonusNum) {
+        int count = 0;
+        boolean checkBonusNum = lotto.contains(bonusNum);
+
+        for (int num : winningNums) {
+            if (lotto.contains(num)) {
+                count++;
+            }
+        }
+
+        ResultMessage.increaseCountResult(count, checkBonusNum);
+    }
+
 }

@@ -1,37 +1,30 @@
 package lotto.controller;
 
-import camp.nextstep.edu.missionutils.Console;
-import lotto.service.LottoService;
-import lotto.utils.Notice;
+import lotto.domain.BonusNumber;
+import lotto.domain.Lotto;
+import lotto.domain.PurchaseAmount;
+import lotto.domain.WinningLotto;
 
+import java.util.List;
+
+import static lotto.domain.BonusNumber.checkWinningResult;
+import static lotto.domain.Lotto.lottosGenerator;
+import static lotto.utils.Input.*;
+import static lotto.utils.Output.*;
 
 public class LottoController {
-
-    private final LottoService lottoService = new LottoService();
-
     public void executeLottoProgram() {
-        createLotto();
-        confirmResult();
-    }
+        PurchaseAmount amount = enterPurchaseAmount();
+        int lottoNum = amount.getLottoNum();
+        List<Lotto> lottos = lottosGenerator(lottoNum);
 
-    private void createLotto() {
-        System.out.println(Notice.LOTTO_PURCHASE_AMOUNT.getMessage());
+        printLottoInfo(lottoNum, lottos);
 
-        String purchaseAmount = Console.readLine();
-        lottoService.generateLotto(purchaseAmount);
-        lottoService.printLottoInfo();
+        WinningLotto winningLotto = enterWinningLotto();
+        BonusNumber bonusNumber = enterBonusNumber(winningLotto);
 
-    }
-
-    private void confirmResult() {
-        System.out.println(Notice.ENTER_WINNING_NUMBER.getMessage());
-        String winningNumbers = Console.readLine();
-
-        System.out.println(Notice.ENTER_BONUS_NUMBER.getMessage());
-        String bonusNumber = Console.readLine();
-
-        lottoService.checkWinningResult(winningNumbers, bonusNumber);
-        lottoService.printResultMessage();
-        lottoService.calculateEarningsRate();
+        checkWinningResult(lottos, winningLotto, bonusNumber);
+        printResultMessage();
+        printEarningRate(amount);
     }
 }

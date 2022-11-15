@@ -37,6 +37,18 @@ public class Lotto {
         }
     }
 
+    public static List<Lotto> lottosGenerator(int num) {
+        List<Lotto> lottos = new ArrayList<>();
+
+        while (num != 0) {
+            Lotto lotto = lottoGenerator();
+            lottos.add(lotto);
+
+            num--;
+        }
+        return lottos;
+    }
+
     public static Lotto lottoGenerator() {
         List<Integer> randomNums = Randoms.pickUniqueNumbersInRange(
                 Constant.LOTTO_RANGE_START_NUM.getValue(),
@@ -48,5 +60,11 @@ public class Lotto {
                 .collect(Collectors.toList());
 
         return new Lotto(lottoNums);
+    }
+
+    public static void printLotto(int num, List<Lotto> lottos) {
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto.getNumbers().toString());
+        }
     }
 }
