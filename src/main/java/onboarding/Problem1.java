@@ -15,10 +15,10 @@ class Problem1 {
     }
 
     private static boolean verifyPair(List<Integer> pairList) {
-        int leftPage = pairList.get(1);
-        int rightPage = pairList.get(0);
+        int leftPage = pairList.get(0);
+        int rightPage = pairList.get(1);
 
-        return leftPage - rightPage == 1 && leftPage > rightPage;
+        return rightPage - leftPage != 1 || rightPage <= leftPage;
     }
 
     private static class MaxNum {
