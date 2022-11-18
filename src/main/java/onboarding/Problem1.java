@@ -4,7 +4,7 @@ import java.util.List;
 
 class Problem1 {
     public static int solution(List<Integer> pobi, List<Integer> crong) {
-        if (!verifyPair(pobi) || !verifyPair(crong)) {
+        if (verifyPair(pobi) || verifyPair(crong)) {
             return -1;
         }
 
