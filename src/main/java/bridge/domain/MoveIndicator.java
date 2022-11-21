@@ -21,4 +21,11 @@ public enum MoveIndicator {
     public static List<String> all() {
         return List.of(UP.indicator, DOWN.indicator);
     }
+
+    public static String findDirection(int num) {
+        if (num == UP.checkNum) {
+            return UP.indicator;
+        }
+        return DOWN.indicator;
+    }
 }
