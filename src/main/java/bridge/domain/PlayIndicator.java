@@ -17,4 +17,13 @@ public enum PlayIndicator {
     public static List<String> all() {
         return List.of(REPLAY.message, QUIT.message);
     }
+
+    public static boolean getFlag(String userResponse) {
+        for (PlayIndicator value : PlayIndicator.values()) {
+            if (userResponse.equals(value.message)) {
+                return value.retryFlag;
+            }
+        }
+        return false;
+    }
 }

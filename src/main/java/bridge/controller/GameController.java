@@ -14,10 +14,24 @@ public class GameController {
     private final OutputView outputView;
     private final BridgeGame bridgeGame;
 
+    private boolean gameFlag;
+
     public GameController() {
         this.bridgeGame = new BridgeGame();
         this.inputView = new InputView();
         this.outputView = new OutputView();
+        this.gameFlag = true;
+    }
+
+    public void execute() {
+        Game game = new Game(inputView.readBridgeSize());
+        while (gameFlag) {
+            game.setFinalResult(playGame(game));
+            game.increaseAttempt();
+            gameFlag = replay(game);
+        }
+        outputView.printFinalMap(game.getBridges());
+        outputView.printResult(game.checkFinalResult(), game.getTotalAttempts());
     }
 
     public boolean playGame(Game game) {
@@ -33,5 +47,12 @@ public class GameController {
     public void playSingleGame(String userDirection, String accessibleDirection, List<Bridge> bridges) {
         bridgeGame.move(userDirection, accessibleDirection, bridges);
         outputView.printMap(bridges);
+    }
+
+    public boolean replay(Game game) {
+        if (!game.checkFinalResult()) {
+            return bridgeGame.retry(game, inputView.readGameCommand());
+        }
+        return false;
     }
 }
