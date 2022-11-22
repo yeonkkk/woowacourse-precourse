@@ -38,7 +38,7 @@ public class Validator {
     private int validateNumber(String input) {
         try {
             return Integer.parseInt(input);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException(NOT_NUMERIC.of());
         }
     }
