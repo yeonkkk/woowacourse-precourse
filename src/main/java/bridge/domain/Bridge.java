@@ -9,14 +9,13 @@ public class Bridge {
         this.bridge = new StringBuilder();
     }
 
-    public void buildSubBridge(String userDirection, String accessibleDirection) {
+    public String buildSubBridge(String userDirection, String accessibleDirection) {
         if (!userDirection.equals(direction)) {
             bridge = BridgeElement.addElement(bridge);
-            getBridge();
-            return;
+            return getBridge();
         }
         bridge = BridgeElement.addElement(bridge, accessibleDirection.equals(direction));
-        getBridge();
+        return getBridge();
     }
 
     public String getBridge() {
