@@ -45,8 +45,7 @@ public class GameController {
     }
 
     public void playSingleGame(String userDirection, String accessibleDirection, List<Bridge> bridges) {
-        bridgeGame.move(userDirection, accessibleDirection, bridges);
-        outputView.printMap(bridges);
+        outputView.printMap(bridgeGame.move(userDirection, accessibleDirection, bridges));
     }
 
     public boolean replay(Game game) {
