@@ -10,13 +10,13 @@ import static bridge.util.ExceptionMessage.OUT_OF_RANGE;
 
 public class Validator {
 
-    protected int validateNumericInput(String input) {
+    public int validateNumericInput(String input) {
         validateNull(input);
 
         return validateRange(validateNumber(input));
     }
 
-    protected String validateCharacterInput(String input, List<String> indicators) {
+    public String validateCharacterInput(String input, List<String> indicators) {
         validateNull(input);
         validateCharacter(input, indicators);
 
