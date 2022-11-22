@@ -10,7 +10,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ValidatorTest {
-    private Validator validator = new Validator();
+    private final Validator validator = new Validator();
 
     @DisplayName("숫자가 아니거나 3~20 사이의 수가 아니면 예외를 발생시킨다.")
     @Test
